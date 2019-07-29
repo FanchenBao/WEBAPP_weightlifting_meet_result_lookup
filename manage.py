@@ -1,3 +1,7 @@
+"""07/28/2019
+
+Following the tutorial from 'https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/'
+"""
 import os
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
