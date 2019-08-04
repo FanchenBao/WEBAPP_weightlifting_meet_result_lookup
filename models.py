@@ -9,6 +9,7 @@ class Result(db.Model):
     __tablename__ = 'results'
 
     id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer)
     gender = db.Column(db.String())
     rank = db.Column(db.Integer)
     rank_s = db.Column(db.Integer)
@@ -30,7 +31,8 @@ class Result(db.Model):
     event = db.Column(db.String())
     date = db.Column(db.DateTime)
 
-    def __init__(self, athlete):
+    def __init__(self, athlete, event_id):
+        self.event_id = event_id
         self.gender = athlete.gender
         self.rank = athlete.rank
         self.rank_s = athlete.rank_s
