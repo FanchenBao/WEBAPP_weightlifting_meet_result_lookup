@@ -3,7 +3,7 @@
 Following the tutorial from 'https://realpython.com/flask-by-example-part-1-project-setup/'
 """
 import os
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from web_scrape import WebScrape
 import re
@@ -37,7 +37,20 @@ def import_weightlifting_data(base_url, start_url, start_year, end_year):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    results = []
+    if request.method == 'POST':
+        fname = request.form['fname']
+        lname = request.form['lname']
+        gender = request.form['gender']
+        nation = request.form['nation']
+        weight_class = request.form['weightclass']
+        meet = request.form['meet']
+        results = Result.query.filter(Result.name.like(lname + '%')).all()
+        if not results:
+            results.append("No data found.")
+    else:
+        results.clear()
+    return render_template('index.html', results=results)
 
 
 @app.route('/import_all')
