@@ -41,6 +41,7 @@ def index():
     results = []
 
     # Values to allow html keep user's previous select options or input values
+    # See here https://stackoverflow.com/questions/43528644/having-a-select-option-stay-selected-after-post-with-flask
     fname = ""
     lname = ""
     gender_select = ""
@@ -54,13 +55,16 @@ def index():
     meets = sorted([v.meet for v in Result.query.with_entities(Result.meet).distinct()])
 
     if request.method == 'POST':
+        # Retrieve data from form submission
         fname = request.form['fname']
         lname = request.form['lname']
         gender_select = request.form['gender']
         nation_select = request.form['nation']
         weight_class_select = request.form['weight_class']
         meet_select = request.form['meet']
-        # Unrelated. To do postgresql query from command line, string must be SINGLE QUOTED
+
+        # UNRELATED. To do postgresql query from command line, string must be SINGLE QUOTED
+        # Refer to http://www.leeladharan.com/sqlalchemy-query-with-or-and-like-common-filters for general query syntax
         q = Result.query
         if fname:
             q = q.filter(Result.name.like('% ' + fname))
@@ -92,7 +96,7 @@ def index():
 
 @app.route('/weight_class')
 def get_weight_class():
-    """ Get weight class info based on given gender """
+    """ Dynamically update weight class options based on gender input """
     gender = request.args.get('gender')
     q = Result.query.with_entities(Result.weight_class).filter_by(gender=gender).distinct()
     weight_classes = sorted([v.weight_class for v in q])

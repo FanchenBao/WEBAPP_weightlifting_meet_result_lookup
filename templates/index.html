@@ -13,14 +13,12 @@
           <input type="text" id="fname" name="fname" placeholder="First Name" value="{{ fname }}">
           <input type="text" id="lname" name="lname" placeholder="Last Name" value="{{ lname }}">
 
-<!--          <label for="gender">Gender</label>-->
           <select id="gender" name="gender">
             <option value="" {% if gender_select=="" %} selected {% endif %}>Select Gender</option>
             <option value="m" {% if gender_select=="m" %} selected {% endif %}>Male</option>
             <option value="w" {% if gender_select=="w" %} selected {% endif %}>Female</option>
           </select>
 
-<!--          <label for="nation">Nation</label>-->
           <select id="nation" name="nation">
             <option value="" {% if nation_select=="" %} selected {% endif %}>Select Nation</option>
             {% for nation in nations %}
@@ -28,7 +26,6 @@
             {% endfor %}
           </select>
 
-<!--          <label for="weight_class">Weight Class</label>-->
           <select id="weight_class" name="weight_class">
             <option value="" {% if weight_class_select=="" %} selected {% endif %}>Select Weight Class</option>
             {% for weight_class in weight_classes %}
@@ -36,7 +33,6 @@
             {% endfor %}
           </select>
 
-<!--          <label for="meet">Name of Meet</label>-->
           <select id="meet" name="meet">
             <option value="" {% if meet_select=="" %} selected {% endif %}>Select Meet</option>
             {% for meet in meets %}
@@ -54,6 +50,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type=text/javascript>
+      // Learned from here https://flask.palletsprojects.com/en/1.0.x/patterns/jquery/
       $(function() {
         $('#gender').change(function() {
           $.getJSON(
