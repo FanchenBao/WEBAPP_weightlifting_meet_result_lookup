@@ -20,7 +20,7 @@ class Result(db.Model):
     name = db.Column(db.String())
     born = db.Column(db.DateTime)
     nation = db.Column(db.String())
-    category = db.Column(db.String())  # need string due to super heavyweight
+    weight_class = db.Column(db.String())  # need string due to super heavyweight
     bweight = db.Column(db.Float)
     snatch1 = db.Column(db.String())  # need string due to '*' mark on the misses or bomb out
     snatch2 = db.Column(db.String())
@@ -31,7 +31,7 @@ class Result(db.Model):
     jerk3 = db.Column(db.String())
     jerk = db.Column(db.String())
     total = db.Column(db.String())
-    event = db.Column(db.String())
+    meet = db.Column(db.String())
     date = db.Column(db.DateTime)
 
     def __init__(self, athlete, event_id):
@@ -44,7 +44,7 @@ class Result(db.Model):
         self.name = athlete['name']
         self.born = datetime.strptime(athlete['born'], '%d.%m.%Y')
         self.nation = athlete['nation']
-        self.category = athlete['category']
+        self.weight_class = athlete['category']
         self.bweight = athlete['bweight']
         self.snatch1 = athlete['snatch1']
         self.snatch2 = athlete['snatch2']
@@ -55,7 +55,7 @@ class Result(db.Model):
         self.jerk3 = athlete['jerk3']
         self.jerk = athlete['jerk']
         self.total = athlete['total']
-        self.event = athlete['event']
+        self.meet = athlete['event']
         self.date = datetime.strptime(athlete['date'], '%m.%Y')
 
     def __repr__(self):
