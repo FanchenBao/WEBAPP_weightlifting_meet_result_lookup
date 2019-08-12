@@ -78,9 +78,11 @@ def index():
             q = q.filter_by(weight_class=weight_class_select)
         if meet_select:
             q = q.filter_by(meet=meet_select)
-        results = q.all()
+        # If no filter option is selected, do not return anything
+        if fname or lname or gender_select or nation_select or weight_class_select or meet_select:
+            results = q.all()
         if not results:
-            results = ["No data found."]
+            results = ["No result found."]
     return render_template('index.html',
                            results=results,
                            fname=fname,
