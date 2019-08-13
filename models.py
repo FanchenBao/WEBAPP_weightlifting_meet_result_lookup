@@ -36,14 +36,14 @@ class Result(db.Model):
 
     def __init__(self, athlete, event_id):
         self.event_id = event_id
-        self.gender = athlete['gender']
+        self.gender = athlete['gender'].lower()
         # Use 1000 as a marker for bombed-out ranking to avoid the '---' marker in the original data set
         self.rank = athlete['rank'] if athlete['rank'].isdigit() else 1000
         self.rank_s = athlete['rank_s'] if athlete['rank_s'].isdigit() else 1000
         self.rank_cj = athlete['rank_cj'] if athlete['rank_cj'].isdigit() else 1000
         self.name = athlete['name']
         self.born = datetime.strptime(athlete['born'], '%d.%m.%Y')
-        self.nation = athlete['nation']
+        self.nation = athlete['nation'].upper()
         self.weight_class = athlete['category']
         self.bweight = athlete['bweight']
         self.snatch1 = athlete['snatch1']

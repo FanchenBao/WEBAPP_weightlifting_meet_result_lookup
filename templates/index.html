@@ -1,38 +1,95 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Weightlifting Result</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Search Weightlifting Meet Result</h1>
-      <form role="form" method='POST' action='/'>
-        <div class="form-group">
-          <p>Filtering Options</p>
-<!--          All filtering info MUST be drop down menu-->
-          <input type="text" id="fname" name="fname" placeholder="First Name" value="{{ fname }}">
-          <input type="text" id="lname" name="lname" placeholder="Last Name" value="{{ lname }}">
+<html lang="en">
 
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Weightlifting Result</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+   <link href="/static/my_style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="./">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.iwf.net/">IWF</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.reddit.com/r/weightlifting/">r/weightlifting
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Search Weightlifting Meet Result</h1>
+      <p class="lead">Use any of the filtering options below to query weightlifting results from IWF-sanctioned meets from 1998 to present</p>
+    </header>
+
+    <!-- Page Features -->
+    <form role="form" method='POST' action='/'>
+      <div class="row text-center">
+
+        <div class="col-3">
+          <input type="text" id="fname" name="fname" placeholder="First Name" value="{{ fname }}">
+        </div>
+
+        <div class="col-3">
+          <input type="text" id="lname" name="lname" placeholder="Last Name" value="{{ lname }}">
+        </div>
+
+        <div class="col-3">
           <select id="gender" name="gender">
             <option value="" {% if gender_select=="" %} selected {% endif %}>Select Gender</option>
             <option value="m" {% if gender_select=="m" %} selected {% endif %}>Male</option>
             <option value="w" {% if gender_select=="w" %} selected {% endif %}>Female</option>
           </select>
+        </div>
 
+        <div class="col-3">
           <select id="nation" name="nation">
             <option value="" {% if nation_select=="" %} selected {% endif %}>Select Nation</option>
             {% for nation in nations %}
               <option value="{{ nation }}" {% if nation_select==nation %} selected {% endif %}>{{ nation }}</option>
             {% endfor %}
           </select>
+        </div>
+      </div>
 
+      <div class="row text-center">
+        <div class="col-3">
           <select id="weight_class" name="weight_class">
             <option value="" {% if weight_class_select=="" %} selected {% endif %}>Select Weight Class</option>
             {% for weight_class in weight_classes %}
               <option value="{{ weight_class }}" {% if weight_class_select==weight_class %} selected {% endif %}>{{ weight_class }}</option>
             {% endfor %}
           </select>
+        </div>
 
+        <div class="col-6">
           <select id="meet" name="meet">
             <option value="" {% if meet_select=="" %} selected {% endif %}>Select Meet</option>
             {% for meet in meets %}
@@ -40,9 +97,16 @@
             {% endfor %}
           </select>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <br>
+
+        <div class="col-3">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+
+      </div>
+    </form>
+    <!-- /.row -->
+
+    <div class="result">
       {% if results[0] == "No result found." %}
         <h4>{{ results[0] }} </h4>
       {% else %}
@@ -52,26 +116,42 @@
       {% endif %}
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type=text/javascript>
-      // Learned from here https://flask.palletsprojects.com/en/1.0.x/patterns/jquery/
-      $(function() {
-        $('#gender').change(function() {
-          $.getJSON(
-            '/weight_class',                // backend url to call
-            {gender: $('#gender').val()},   // data to be passed to the backend url
-            function(data) {                // after backend returns processed data back, handle new data
-              // Remove old options
-              $('#weight_class').find('option').remove();
-              // Add new items
-              $('#weight_class').append('<option value="">Select Weight Class</option>')
-              for (val of data){
-                $('#weight_class').append('<option value="' + val + '">' + val + '</option>')
-              }
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Fanchen Bao 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script type=text/javascript>
+    // Learned from here https://flask.palletsprojects.com/en/1.0.x/patterns/jquery/
+    $(function() {
+      $('#gender').change(function() {
+        $.getJSON(
+          '/weight_class',                // backend url to call
+          {gender: $('#gender').val()},   // data to be passed to the backend url
+          function(data) {                // after backend returns processed data back, handle new data
+            // Remove old options
+            $('#weight_class').find('option').remove();
+            // Add new items
+            $('#weight_class').append('<option value="">Select Weight Class</option>')
+            for (val of data){
+              $('#weight_class').append('<option value="' + val + '">' + val + '</option>')
             }
-          );
-        });
+          }
+        );
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
+
 </html>
