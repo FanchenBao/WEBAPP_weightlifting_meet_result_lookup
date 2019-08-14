@@ -101,7 +101,8 @@ def get_weight_class():
     """ Dynamically update weight class options based on gender input """
     gender = request.args.get('gender')
     q = Result.query.with_entities(Result.weight_class).filter_by(gender=gender).distinct()
-    weight_classes = sorted(v.weight_class for v in q)
+    weight_classes = sorted([v.weight_class for v in q])
+    print(weight_classes)
     return jsonify(weight_classes)
 
 
