@@ -55,17 +55,23 @@
       <form role="form" method='POST' action='/'>
         <div class="row">
 
-          <div class="col-3">
-            <input type="text" id="fname" name="fname" placeholder="First Name" value="{{ fname }}">
-          </div>
-
-          <div class="col-3">
-            <input type="text" id="lname" name="lname" placeholder="Last Name" value="{{ lname }}">
+          <div class="col-6">
+            <div class="form-group">
+              <select class="selectpicker form-control" id="name" name="name" data-size="6" data-live-search="true">
+                <option class="text-muted" value="" {% if name_select=="" %} selected {% endif %}>Select Name</option>
+                <option data-divider="true"></option>
+                {% for name in names %}
+                  <option value="{{ name }}" {% if name_select==name %} selected {% endif %}>{{ name }}</option>
+                {% endfor %}
+              </select>
+            </div>
           </div>
 
           <div class="col-3">
             <div class="form-group">
-              <select class="selectpicker form-control" id="gender" name="gender" title="Select Gender...">
+              <select class="selectpicker form-control" id="gender" name="gender">
+                <option class="text-muted" value="" {% if gender_select=="" %} selected {% endif %}>Select Gender</option>
+                <option data-divider="true"></option>
                 <option value="m" {% if gender_select=="m" %} selected {% endif %}>Male</option>
                 <option value="w" {% if gender_select=="w" %} selected {% endif %}>Female</option>
               </select>
@@ -74,7 +80,9 @@
 
           <div class="col-3">
             <div class="form-group">
-              <select class="selectpicker form-control" id="nation" name="nation" title="Select Nation..." data-size="5" data-live-search="true">
+              <select class="selectpicker form-control" id="nation" name="nation" data-size="6" data-live-search="true">
+                <option class="text-muted" value="" {% if nation_select=="" %} selected {% endif %}>Select Nation</option>
+                <option data-divider="true"></option>
                 {% for nation in nations %}
                   <option value="{{ nation }}" {% if nation_select==nation %} selected {% endif %}>{{ nation }}</option>
                 {% endfor %}
@@ -86,7 +94,9 @@
         <div class="row">
           <div class="col-3">
             <div class="form-group">
-              <select class="selectpicker form-control" id="weight_class" name="weight_class" title="Select Weight Class...">
+              <select class="selectpicker form-control" id="weight_class" name="weight_class">
+                <option class="text-muted" value="" {% if weight_class_select=="" %} selected {% endif %}>Select Weight Class</option>
+                <option data-divider="true"></option>
                 {% for weight_class in weight_classes %}
                   <option value="{{ weight_class }}" {% if weight_class_select==weight_class %} selected {% endif %}>{{ weight_class }}</option>
                 {% endfor %}
@@ -96,7 +106,9 @@
 
           <div class="col-6">
             <div class="form-group">
-              <select class="selectpicker form-control" id="meet" name="meet" title="Select Meet..." data-size="5" data-live-search="true">
+              <select class="selectpicker form-control" id="meet" name="meet" data-size="6" data-live-search="true">
+                <option class="text-muted" value="" {% if meet_select=="" %} selected {% endif %}>Select Meet</option>
+                <option data-divider="true"></option>
                 {% for meet in meets %}
                   <option value="{{ meet }}" {% if meet_select==meet %} selected {% endif %}>{{ meet }}</option>
                 {% endfor %}
@@ -145,7 +157,25 @@
     // manually set bootstrap version for bootstrap-select
     $.fn.selectpicker.Constructor.BootstrapVersion = "4.3.1";
 
-    // To learn how to do AJAX call, start from here https://flask.palletsprojects.com/en/1.0.x/patterns/jquery/
+    // Learned from here https://flask.palletsprojects.com/en/1.0.x/patterns/jquery/
+    $(function() {
+      $('#gender').change(function() {
+        $.getJSON(
+          '/weight_class',                // backend url to call
+          {gender: $('#gender').val()},   // data to be passed to the backend url
+          function(data) {                // after backend returns processed data back, handle new data
+            // Remove old options
+            $('#weight_class').empty()
+            // Add new items for option
+            $('#weight_class').append('<option class="text-muted" value="" {% if weight_class_select=="" %} selected {% endif %}>Select Weight Class</option><option data-divider="true"></option>')
+            $.each(data, function(i, val){
+              $('#weight_class').append('<option value="' + val + '">' + val + '</option>');
+            });
+            $('#weight_class').selectpicker('refresh');  // important step to allow for dynamic update of select options
+          }
+        );
+      });
+    });
   </script>
 </body>
 

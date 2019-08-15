@@ -42,22 +42,21 @@ def index():
 
     # Values to allow html keep user's previous select options or input values
     # See here https://stackoverflow.com/questions/43528644/having-a-select-option-stay-selected-after-post-with-flask
-    fname = ""
-    lname = ""
+    name_select = ""
     gender_select = ""
     weight_class_select = ""
     nation_select = ""
     meet_select = ""
 
     # populate select options
+    names = sorted([v.name for v in Result.query.with_entities(Result.name).distinct()])
     nations = sorted([v.nation.upper() for v in Result.query.with_entities(Result.nation).distinct()])
     weight_classes = sorted([v.weight_class for v in Result.query.with_entities(Result.weight_class).distinct()])
     meets = sorted([v.meet for v in Result.query.with_entities(Result.meet).distinct()])
 
     if request.method == 'POST':
         # Retrieve data from form submission
-        fname = request.form['fname']
-        lname = request.form['lname']
+        name_select = request.form['name']
         gender_select = request.form['gender']
         nation_select = request.form['nation']
         weight_class_select = request.form['weight_class']
@@ -66,10 +65,8 @@ def index():
         # UNRELATED. To do postgresql query from command line, string must be SINGLE QUOTED
         # Refer to http://www.leeladharan.com/sqlalchemy-query-with-or-and-like-common-filters for general query syntax
         q = Result.query
-        if fname:
-            q = q.filter(Result.name.like('% ' + fname))
-        if lname:
-            q = q.filter(Result.name.like(lname + ' %'))
+        if name_select:
+            q = q.filter_by(name=name_select)
         if gender_select:
             q = q.filter_by(gender=gender_select)
         if nation_select:
@@ -79,17 +76,17 @@ def index():
         if meet_select:
             q = q.filter_by(meet=meet_select)
         # If no filter option is selected, do not return anything
-        if fname or lname or gender_select or nation_select or weight_class_select or meet_select:
+        if name_select or gender_select or nation_select or weight_class_select or meet_select:
             results = q.all()
         if not results:
             results = ["No result found."]
     return render_template('index.html',
                            results=results,
-                           fname=fname,
-                           lname=lname,
+                           names=names,
                            weight_classes=weight_classes,
                            nations=nations,
                            meets=meets,
+                           name_select=name_select,
                            gender_select=gender_select,
                            weight_class_select=weight_class_select,
                            nation_select=nation_select,
