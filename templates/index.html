@@ -56,8 +56,8 @@
     <!--    query-filters-->
     <div class="query-filters">
       <form method='POST' action='/'>
-        <div class="row">
-          <div class="col-6">
+        <div class="row" id="row-1">
+          <div class="col-12">
             <div class="form-group">
               <select class="selectpicker form-control" id="name" name="name" data-size="6" data-live-search="true">
                 <option class="text-muted" value="" {% if name_select=="" %} selected {% endif %}>Select Name</option>
@@ -68,8 +68,11 @@
               </select>
             </div>
           </div>
+        </div>
+        <!--  /first row-->
 
-          <div class="col-2">
+        <div class="row" id="row-2">
+          <div class="col-4">
             <div class="form-group">
               <select class="selectpicker form-control" id="gender" name="gender">
                 <option class="text-muted" value="" {% if gender_select=="" %} selected {% endif %}>Gender</option>
@@ -80,7 +83,7 @@
             </div>
           </div>
 
-          <div class="col-2">
+          <div class="col-4">
             <div class="form-group">
               <select class="selectpicker form-control" id="nation" name="nation" data-size="6" data-live-search="true">
                 <option class="text-muted" value="" {% if nation_select=="" %} selected {% endif %}>Nation</option>
@@ -92,10 +95,10 @@
             </div>
           </div>
 
-          <div class="col-2">
+          <div class="col-4">
             <div class="form-group">
               <select class="selectpicker form-control" id="weight_class" name="weight_class">
-                <option class="text-muted" value="" {% if weight_class_select=="" %} selected {% endif %}>Weight Class</option>
+                <option class="text-muted" value="" {% if weight_class_select=="" %} selected {% endif %}>Wt Cls</option>
                 <option data-divider="true"></option>
                 {% for weight_class in weight_classes %}
                   <option value="{{ weight_class }}" {% if weight_class_select==weight_class %} selected {% endif %}>{{ weight_class }}</option>
@@ -104,10 +107,10 @@
             </div>
           </div>
         </div>
-        <!--  /first row-->
+        <!--        /second row-->
 
-        <div class="row">
-          <div class="col-6">
+        <div class="row" id="row-3">
+          <div class="col-9">
             <div class="form-group">
               <select class="selectpicker form-control" id="meet" name="meet" data-size="6" data-live-search="true">
                 <option class="text-muted" value="" {% if meet_select=="" %} selected {% endif %}>Select Meet</option>
@@ -119,11 +122,11 @@
             </div>
           </div>
 
-          <div class="col-2">
-            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search"></i></button>
+          <div class="col-3">
+            <button type="submit" class="btn btn-success btn-block"><i class="fas fa-search"></i></button>
           </div>
         </div>
-        <!--  /second row-->
+        <!--  /third row-->
       </form>
     </div>
     <!-- /.query-filters -->

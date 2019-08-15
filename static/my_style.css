@@ -35,26 +35,19 @@ body {
   margin-top: 10vh;
 }
 
-.intro-content {
-  width: 50%;
-}
-
-/* custom button color to match 20kg plate */
-.btn-primary {
-  background-color: rgba(41, 62, 151);
-  border: none;
-}
-.btn-primary:hover {
-  background-color: rgba(55, 81, 200);
-}
-
 .query-result {
   /* use viewpoint-height to dynamically set the height based on screen size */
   height: 50vh;
   /* overflow set to auto to allow for scroll bar within content */
   overflow: auto;
   /* match 15kg plate */
-  background-color: rgba(230, 199, 31, 0.9)
+  background-color: rgba(230, 199, 31, 0.9);
+  font-size: 12px;
+}
+
+/* reduce font size of drop-down menu */
+.bootstrap-select .dropdown-menu li {
+  font-size: 13px;
 }
 
 /* Header stay in place */
@@ -76,7 +69,7 @@ thead th {
   height: 30px;
   line-height: 30px; /* Vertically center the text there */
   /* match 10kg plate */
-  background-color: rgba(111, 184, 94)
+  background-color: rgba(41, 62, 151);
 }
 
 .footer-text {
