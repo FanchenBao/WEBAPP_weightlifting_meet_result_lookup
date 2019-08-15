@@ -33,6 +33,7 @@ body {
   background-color: rgba(204, 204, 204, 0.9)
 }
 
+/* for sticky footer. See here for reference: https://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/# */
 .footer {
   position: absolute;
   bottom: 0;

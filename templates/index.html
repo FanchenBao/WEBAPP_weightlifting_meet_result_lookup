@@ -23,7 +23,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="./">Home</a>
+      <a class="navbar-brand" href="./">Restart Search</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -144,27 +144,8 @@
   <script type="text/javascript">
     // manually set bootstrap version for bootstrap-select
     $.fn.selectpicker.Constructor.BootstrapVersion = "4.3.1";
-  </script>
 
-  <script type=text/javascript>
-    // Learned from here https://flask.palletsprojects.com/en/1.0.x/patterns/jquery/
-    $(function() {
-      $('#gender').change(function() {
-        $.getJSON(
-          '/weight_class',                // backend url to call
-          {gender: $('#gender').val()},   // data to be passed to the backend url
-          function(data) {                // after backend returns processed data back, handle new data
-            // Remove old options
-            $('#weight_class').find('option').remove();
-            // Add new items
-            $('#weight_class').append('<option value="">Select Weight Class</option>')
-            for (val of data){
-              $('#weight_class').append('<option value="' + val + '">' + val + '</option>')
-            }
-          }
-        );
-      });
-    });
+    // To learn how to do AJAX call, start from here https://flask.palletsprojects.com/en/1.0.x/patterns/jquery/
   </script>
 </body>
 
