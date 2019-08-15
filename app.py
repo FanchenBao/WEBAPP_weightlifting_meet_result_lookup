@@ -69,6 +69,8 @@ def index():
             q = q.filter_by(name=name_select)
         if gender_select:
             q = q.filter_by(gender=gender_select)
+            # update weight_classes for next round of query
+            weight_classes = sorted([v.weight_class for v in Result.query.with_entities(Result.weight_class).filter_by(gender=gender_select).distinct()])
         if nation_select:
             q = q.filter_by(nation=nation_select)
         if weight_class_select:

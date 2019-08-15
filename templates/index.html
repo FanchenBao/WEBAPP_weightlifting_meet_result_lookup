@@ -15,7 +15,10 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
   <!-- Custom styles for this template -->
-   <link href="/static/my_style.css" rel="stylesheet">
+  <link href="/static/my_style.css" rel="stylesheet">
+
+  <!--  Font-awesome-->
+  <script src="https://kit.fontawesome.com/95fafbed49.js"></script>
 
 </head>
 
@@ -52,9 +55,8 @@
 
     <!--    query-filters-->
     <div class="query-filters">
-      <form role="form" method='POST' action='/'>
+      <form method='POST' action='/'>
         <div class="row">
-
           <div class="col-6">
             <div class="form-group">
               <select class="selectpicker form-control" id="name" name="name" data-size="6" data-live-search="true">
@@ -67,10 +69,10 @@
             </div>
           </div>
 
-          <div class="col-3">
+          <div class="col-2">
             <div class="form-group">
               <select class="selectpicker form-control" id="gender" name="gender">
-                <option class="text-muted" value="" {% if gender_select=="" %} selected {% endif %}>Select Gender</option>
+                <option class="text-muted" value="" {% if gender_select=="" %} selected {% endif %}>Gender</option>
                 <option data-divider="true"></option>
                 <option value="m" {% if gender_select=="m" %} selected {% endif %}>Male</option>
                 <option value="w" {% if gender_select=="w" %} selected {% endif %}>Female</option>
@@ -78,10 +80,10 @@
             </div>
           </div>
 
-          <div class="col-3">
+          <div class="col-2">
             <div class="form-group">
               <select class="selectpicker form-control" id="nation" name="nation" data-size="6" data-live-search="true">
-                <option class="text-muted" value="" {% if nation_select=="" %} selected {% endif %}>Select Nation</option>
+                <option class="text-muted" value="" {% if nation_select=="" %} selected {% endif %}>Nation</option>
                 <option data-divider="true"></option>
                 {% for nation in nations %}
                   <option value="{{ nation }}" {% if nation_select==nation %} selected {% endif %}>{{ nation }}</option>
@@ -89,13 +91,11 @@
               </select>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-3">
+          <div class="col-2">
             <div class="form-group">
               <select class="selectpicker form-control" id="weight_class" name="weight_class">
-                <option class="text-muted" value="" {% if weight_class_select=="" %} selected {% endif %}>Select Weight Class</option>
+                <option class="text-muted" value="" {% if weight_class_select=="" %} selected {% endif %}>Weight Class</option>
                 <option data-divider="true"></option>
                 {% for weight_class in weight_classes %}
                   <option value="{{ weight_class }}" {% if weight_class_select==weight_class %} selected {% endif %}>{{ weight_class }}</option>
@@ -103,7 +103,10 @@
               </select>
             </div>
           </div>
+        </div>
+        <!--        first row-->
 
+        <div class="row">
           <div class="col-6">
             <div class="form-group">
               <select class="selectpicker form-control" id="meet" name="meet" data-size="6" data-live-search="true">
@@ -116,10 +119,9 @@
             </div>
           </div>
 
-          <div class="col-3">
-            <button type="submit" class="btn btn-primary">Search</button>
+          <div class="col-2">
+            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search"></i></button>
           </div>
-
         </div>
       </form>
     </div>
@@ -134,7 +136,6 @@
         {% endfor %}
       {% endif %}
     </div>
-
   </div>
   <!-- /.page-content -->
 
@@ -167,7 +168,7 @@
             // Remove old options
             $('#weight_class').empty()
             // Add new items for option
-            $('#weight_class').append('<option class="text-muted" value="" {% if weight_class_select=="" %} selected {% endif %}>Select Weight Class</option><option data-divider="true"></option>')
+            $('#weight_class').append('<option class="text-muted" value="" {% if weight_class_select=="" %} selected {% endif %}>Weight Class</option><option data-divider="true"></option>')
             $.each(data, function(i, val){
               $('#weight_class').append('<option value="' + val + '">' + val + '</option>');
             });
