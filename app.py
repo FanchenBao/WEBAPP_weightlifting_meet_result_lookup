@@ -79,7 +79,7 @@ def index():
             q = q.filter_by(meet=meet_select)
         # If no filter option is selected, do not return anything
         if name_select or gender_select or nation_select or weight_class_select or meet_select:
-            results = q.all()
+            results = sorted(q.all(), key=lambda x: x.date)
         if not results:
             results = ["No result found."]
     return render_template('index.html',

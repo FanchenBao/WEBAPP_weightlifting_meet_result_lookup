@@ -22,9 +22,9 @@
 
 </head>
 
-<body>
+<body">
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="./">Restart Search</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,7 +104,7 @@
             </div>
           </div>
         </div>
-        <!--        first row-->
+        <!--  /first row-->
 
         <div class="row">
           <div class="col-6">
@@ -123,26 +123,77 @@
             <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search"></i></button>
           </div>
         </div>
+        <!--  /second row-->
       </form>
     </div>
     <!-- /.query-filters -->
 
     <div class="query-result">
-      {% if results[0] == "No result found." %}
-        <h4>{{ results[0] }} </h4>
-      {% else %}
-        {% for result in results %}
-          <h4>{{ result.name, result.nation, result.weight_class, result.gender }}</h4>
-        {% endfor %}
-      {% endif %}
+      <table class="table table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">G</th>
+            <th scope="col">W_C</th>
+            <th scope="col">Born</th>
+            <th scope="col">Nation</th>
+            <th scope="col">B_W</th>
+            <th scope="col" class="left-border">Sna_1</th>
+            <th scope="col">Sna_2</th>
+            <th scope="col">Sna_3</th>
+            <th scope="col">Sna</th>
+            <th scope="col">Rank Sna</th>
+            <th scope="col" class="left-border">C&J 1</th>
+            <th scope="col">C&J 2</th>
+            <th scope="col">C&J 3</th>
+            <th scope="col">C&J  </th>
+            <th scope="col">Rank C&J</th>
+            <th scope="col" class="left-border">Total</th>
+            <th scope="col">Rank</th>
+            <th scope="col" >Meet</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if results[0] == "No result found." %}
+            <tr><td>{{ results[0] }}<td></tr>
+          {% else %}
+            {% for result in results %}
+              <tr>
+                <td>{{ result.name}}</td>
+                <td>{% if result.gender == "m" %} M {% else %} F {% endif %}</td>
+                <td>{{ result.weight_class}}</td>
+                <td>{{ result.born.strftime('%Y-%m-%d') }}</td>
+                <td>{{ result.nation}}</td>
+                <td>{{ result.bweight}}</td>
+                <td class="left-border">{{ result.snatch1}}</td>
+                <td>{{ result.snatch2}}</td>
+                <td>{{ result.snatch3}}</td>
+                <td>{{ result.snatch}}</td>
+                <td>{% if result.rank_s == 1000 %} --- {% else %} {{ result.rank_s }} {% endif %}</td>
+                <td class="left-border">{{ result.jerk1}}</td>
+                <td>{{ result.jerk2}}</td>
+                <td>{{ result.jerk3}}</td>
+                <td>{{ result.jerk}}</td>
+                <td>{% if result.rank_cj == 1000 %} --- {% else %} {{ result.rank_cj }} {% endif %}</td>
+                <td class="left-border">{{ result.total}}</td>
+                <td>{% if result.rank == 1000 %} --- {% else %} {{ result.rank }} {% endif %}</td>
+                <td class="left-border">{{ result.meet}}</td>
+                <td>{{ result.date.strftime('%Y-%m') }}</td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
     </div>
+    <!--    /query-result-->
   </div>
   <!-- /.page-content -->
 
   <!-- Footer -->
-  <footer class="footer bg-dark text-white-50">
+  <footer class="footer text-white-50">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Fanchen Bao 2019</p>
+      <p class="m-0 text-center text-white footer-text">Copyright &copy; Fanchen Bao 2019</p>
     </div>
   </footer>
 
