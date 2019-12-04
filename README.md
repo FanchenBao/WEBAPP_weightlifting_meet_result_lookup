@@ -8,7 +8,7 @@ This is a simple web app to query all weightlifting meet results available on [I
 The motivation behind this project is that the process of searching for weightlifting meet results directly from IWF official website involves more mouse clicks than I would like. I prefer a single portal that allows users to use whatever query combination they like, e.g. a certain gender of a certain country, a certain weight class in a certain meet, specific athlete at certain meet, etc. [Weightlifting Meet Result Lookup](https://weightlifting-result-stage.herokuapp.com/) provides such portal with easy-to-navigate user interface.
 
 ## Webapp Snapshot
-![webapp snapshot]()
+![webapp snapshot](https://github.com/FanchenBao/WEBAPP_weightlifting_meet_result_lookup/blob/master/static/images/webapp_snapshot.png)
 
 ## Q & A
 ### Why data extend only to August, 2019?
