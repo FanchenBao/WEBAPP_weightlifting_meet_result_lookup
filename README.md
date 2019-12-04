@@ -10,6 +10,12 @@ The motivation behind this project is that the process of searching for weightli
 ## Webapp Snapshot
 ![webapp snapshot]()
 
-## Issues And ToDo
-* Since the heroku database already contains more rows than `hobby-dev` tier allows (10,000 rows limit), no more insert action can be executed until number of rows drop below the free-tier limit or the database is upgraded. Currently, I have no plan of paying for a bigger database. That's why the web app only supports results up till August, 2019.
-* IWF's official website is not the only source for meet results. [IWRP](http://iwrp.net/events) is also a great source, providing non-IWF sanctioned meet results and even data from as early as 1928. Incorporating IWRP's data will definitely be very helpful.
+## Q & A
+### Why data extend only to August, 2019?
+Because I have exceeded the row limit (10,000) of heroku's `hobby-dev` tier for postgresql database. Unless I upgrade or ingeniously improve database structure, I am stuck with August, 2019. In fact, currently the database already contained about 20k rows. Heroku is kind enough to allow me to keep all the rows already migrated there, but no more insertion is allowed.
+
+### What about weightlifting results before 1998 or non-IWF sanctioned meets?
+For old or non-IWF sanctioned meet results, the best aggregated source is [IWRP](http://iwrp.net/events). We can also crawl websites of all major continental/national weightlifting federations to get non-IWF sanctioned meets. This is certainly doable, but contingent on resolving the database issue first.
+
+### Why is there `stage` in the web app URL?
+Because the current web app version is still considered as staging, not production yet. Considering my schedule and focus, this web app will stay as "stage" for a long time.
